@@ -1,0 +1,21 @@
+{
+  "name": "linkedin-messenger",
+  "version": "0.1.0",
+  "description": "A LinkedIn client application for bulk tasks",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Richard Garner <rich@richgarner.net>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "crypto": "0.0.3",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "https": "^1.0.0",
+    "querystring": "^0.2.0",
+    "underscore": "^1.8.3"
+  }
+}
