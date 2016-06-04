@@ -1,6 +1,7 @@
-var https = require('https');
+var https       = require('https');
+var querystring = require('querystring');
 
-exports.create = function(options) {
+module.exports.create = function(options) {
 
 	var client_id     = options.client_id;
 	var client_secret = options.client_secret;
@@ -30,23 +31,23 @@ exports.create = function(options) {
 		acceptAuthCode: function(http_request, callback) {
 			
 			var error;
-			if(req.method != 'GET') {
+			if(http_request.method != 'GET') {
 				error = Error('Linkedin.acceptAuthCode(http_request): http_request.method must be a GET')
 			}
 
-			if(req.query.error) {
-				error = Error('Linkedin.acceptAuthCode(http_request): ' + req.query.error + ": " + req.query.error_description);
+			if(http_request.query.error) {
+				error = Error('Linkedin.acceptAuthCode(http_request): ' + http_request.query.error + ": " + http_request.query.error_description);
 			}
 
-			if(req.query.state != state) {
+			if(http_request.query.state != state) {
 				error = Error("Linkedin.acceptAuthCode(http_request): http_request.query.state does not match original request's state");
 			}
 
-			if(!req.query.code) {
+			if(!http_request.query.code) {
 				error = Error("Linkedin.acceptAuthCode(http_request): there is no auth code");
 			}
 
-			callback(error, req.query.code);
+			callback(error, http_request.query.code);
 
 		},
 		// Step 3 — Exchange Authorization Code for an Access Token
