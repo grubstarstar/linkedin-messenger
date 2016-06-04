@@ -17,14 +17,17 @@ module.exports.create = function(options) {
 		},
 		requestAuthorisation: function(http_response, state) {
 			this._last_state_string = state;
+			var qstring = {
+				client_id: client_id,
+				redirect_uri: redirect_uri,
+				response_type: 'code',
+				state: state
+			};
+			if(scope) {
+				qstring.scope = scope;
+			}
 			return http_response.redirect(
-				'https://www.linkedin.com/oauth/v2/authorization?' + querystring.stringify({
-					client_id: client_id,
-					// scope: scope,
-					redirect_uri: redirect_uri,
-					response_type: 'code',
-					state: state
-				})
+				'https://www.linkedin.com/oauth/v2/authorization?' + querystring.stringify(qstring)
 			);
 		},
 		acceptAuthCode: function(http_request, callback) {
