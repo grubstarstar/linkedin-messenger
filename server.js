@@ -9,8 +9,9 @@ const session               = require('express-session');
 const _                     = require('underscore');
 const querystring           = require('querystring');
 const crypto                = require('crypto');
-const app                   = express();
-const LinkedinClientFactory = express('./linkedin-client.js');
+const LinkedinClientFactory = require('./my_modules/linkedin-client.js');
+
+const app = express();
 
 // Set up handlebars as the view engine
 const exphbs = require('express-handlebars');
