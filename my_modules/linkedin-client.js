@@ -158,6 +158,16 @@ module.exports.create = function(options) {
 			this._request('GET', '/v1/people/~', null, (error, json) => {
 				callback(error, json);
 			});
+		},
+		shares: function(callback) {
+			this._request('GET', '/v1/people/~/shares', null, (error, json) => {
+				callback(error, json);
+			});
+		},
+		company: function(id, callback) {
+			this._request('GET', '/v1/companies/'+id, null, (error, json) => {
+				callback(error, json);
+			});
 		}
 	}
 }

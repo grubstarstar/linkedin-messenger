@@ -111,9 +111,10 @@ app.get('/oauth/linkedin', (req, res) => {
 // Shows the main messenger page
 app.get('/', (req, res) => {
 	var sess = req.session;
+
 	linkedin_client.people((error, data) => {
 		res.render('messenger', {
-			message: 'DATA: '+ data
+			message: 'DATA: '+ JSON.stringify(data)
 		});
 	});
 });
