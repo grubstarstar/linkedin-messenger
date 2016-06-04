@@ -69,13 +69,13 @@ module.exports.create = function(options) {
 					data += chunk;
 				});
 
-				access_token_response.on('end', () => {
+				access_token_response.on('end', (e) => {
 					var json = JSON.parse(data);
 					console.log("ACCESS TOKEN", json.access_token);
 					console.log("...expires in", json.expires_in);
 					self.access_token = json.access_token;
 					self.access_token_expiry = Date.now() + json.expires_in;
-					callback();
+					callback(e);
 				})			
 			});
 
@@ -99,14 +99,46 @@ module.exports.create = function(options) {
 			access_token_request.write(url_encode_body);
 			access_token_request.end();
 		},
-		_request: function() {
+		_request: function(method, resource_path, data, callback) {
 			// GET /v1/people/~ HTTP/1.1
 			// Host: api.linkedin.com
 			// Connection: Keep-Alive
 			// Authorization: Bearer AQXdSP_W41_UPs5ioT_t8HESyODB4FqbkJ8LrV_5mff4gPODzOYR
-			// res.setHeader('Host', 'api.linkedin.com');
-			// res.setHeader('Connection', 'Keep-Alive');
-			// res.setHeader('Authorization', 'Bearer ' + this.access_token);
+
+			var options = {
+				hostname: 'api.linkedin.com',
+				port: 443,
+				path: resource_path,
+				method: method
+			};
+
+			var req = https.request(options, (res) => {
+
+				var data = '';
+				res.on('data', (chunk) => {
+					data += chunk;
+				});
+
+				res.on('end', (e) => {
+					var json = JSON.parse(data);
+					callback(e, json);
+				});		
+			});
+
+			req.on('error', (e) => {
+				callback(e);
+			})
+
+			req.setHeader('Host', 'api.linkedin.com');
+			req.setHeader('Connection', 'Keep-Alive');
+			req.setHeader('Authorization', 'Bearer ' + this.access_token);
+			if(method == "POST") req.write(JSON.stringify(data));
+			req.end();
+		},
+		people: function(callback) {
+			this._request('GET', '/v1/people/~', null, (error, json) => {
+				callback(error, json);
+			});
 		}
 	}
 }

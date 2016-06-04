@@ -71,7 +71,7 @@ app.use((req, res, next) => {
 // Redirects the user to LinkedIn to authorise this application if there is no ACCESS TOKEN
 app.use((req, res, next) => {
 
-	if(req.path != '/login' && req.path != '/oauth/linkedin' && !linkedin_client.hasAccessToken()) {
+	if(req.path != '/login' && req.path != '/oauth/linkedin' && linkedin_client.needsNewToken()) {
 		// The state is used by OAuth 2 to improve security
 		crypto.randomBytes(256, (err, buffer) => {
 			// If we don't have an access token to talk to the Linkein app,
@@ -110,8 +110,10 @@ app.get('/oauth/linkedin', (req, res) => {
 // Shows the main messenger page
 app.get('/', (req, res) => {
 	var sess = req.session;
-	res.render('messenger', {
-		message: 'You are already logged in: '+ sess.username + ', ' + sess.password
+	linkedin_client.people((error, data) => {
+		res.render('messenger', {
+			message: 'DATA: '+ data
+		});
 	});
 });
 
