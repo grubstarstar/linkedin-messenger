@@ -147,7 +147,7 @@ module.exports.create = function(options) {
 			req.end();
 		},
 		people: function(callback) {
-			this._request('GET', '/v1/people/~', null, (error, json) => {
+			this._request('GET', '/v2/people/~', null, (error, json) => {
 				callback(error, json);
 			});
 		}
