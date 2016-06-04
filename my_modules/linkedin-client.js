@@ -141,6 +141,8 @@ module.exports.create = function(options) {
 			req.setHeader('Host', 'api.linkedin.com');
 			req.setHeader('Connection', 'Keep-Alive');
 			req.setHeader('Authorization', 'Bearer ' + this.access_token);
+			req.setHeader('Content-Type', 'application/json');
+			req.setHeader('x-li-format', 'json');
 
 			if(method == "POST") req.write(JSON.stringify(data));
 
