@@ -109,9 +109,15 @@ module.exports.create = function(options) {
 			// Authorization: Bearer AQXdSP_W41_UPs5ioT_t8HESyODB4FqbkJ8LrV_5mff4gPODzOYR
 
 			resource_path = resource_path + '?format=json';
-
+			
 			if(method == "GET") {
-				resource_path = resource_path + '&' + querystring.stringify(data);
+				var qstring = querystring.stringify(data);
+				if(qstring) {
+					qstring = '&' + qstring;
+				} else {
+					qstring = '';
+				}
+				resource_path = resource_path + qstring;
 			}
 
 			var options = {
@@ -149,7 +155,7 @@ module.exports.create = function(options) {
 			req.end();
 		},
 		people: function(callback) {
-			this._request('GET', '/v2/people/~', null, (error, json) => {
+			this._request('GET', '/v1/people/~', null, (error, json) => {
 				callback(error, json);
 			});
 		}
