@@ -13,7 +13,7 @@ module.exports.create = function(options) {
 			return this.access_token;
 		},
 		needsNewToken: function() {
-			return !this.hasAccessToken() && (Date.now() >= this.access_token_expiry - 60);
+			return !this.hasAccessToken() || (Date.now() >= this.access_token_expiry - 60);
 		},
 		requestAuthorisation: function(http_response, state) {
 			this._last_state_string = state;
