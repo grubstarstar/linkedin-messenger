@@ -10,10 +10,10 @@ module.exports.create = function(options) {
 
 	return {
 		hasAccessToken: function() {
-			return this.auth_token;
+			return this.access_token;
 		},
 		needsNewToken: function() {
-			return !this.hasAccessToken() && (Date.now() >= this.auth_token_expiry - 60);
+			return !this.hasAccessToken() && (Date.now() >= this.access_token_expiry - 60);
 		},
 		requestAuthorisation: function(http_response, state) {
 			this._last_state_string = state;
@@ -53,6 +53,8 @@ module.exports.create = function(options) {
 		// Step 3 — Exchange Authorization Code for an Access Token
 		requestAccessToken: function(auth_code, callback) {
 
+			var self = this;
+
 			var options = {
 				hostname: 'www.linkedin.com',
 				port: 443,
@@ -71,8 +73,8 @@ module.exports.create = function(options) {
 					var json = JSON.parse(data);
 					console.log("ACCESS TOKEN", json.access_token);
 					console.log("...expires in", json.expires_in);
-					this.access_token = json.access_token;
-					this.auth_token_expiry = Date.now() + json.expires_in;
+					self.access_token = json.access_token;
+					self.access_token_expiry = Date.now() + json.expires_in;
 					callback();
 				})			
 			});
