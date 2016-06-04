@@ -108,7 +108,7 @@ module.exports.create = function(options) {
 			// Connection: Keep-Alive
 			// Authorization: Bearer AQXdSP_W41_UPs5ioT_t8HESyODB4FqbkJ8LrV_5mff4gPODzOYR
 
-			resource_path += resource_path + '?format=json';
+			resource_path = resource_path + '?format=json';
 
 			if(method == "GET") {
 				resource_path = resource_path + '&' + querystring.stringify(data);
