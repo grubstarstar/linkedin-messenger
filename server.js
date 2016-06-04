@@ -22,7 +22,7 @@ app.set('view engine', 'handlebars');
 var linkedin_client = LinkedinClientFactory.create({
 	client_id: '75r0sg4teeoy7e',
 	client_secret: 'AXoszgsSSCVkiZzq',
-	redirect_uri: 'http://ec2-52-197-31-112.ap-northeast-1.compute.amazonaws.com/oauth/linkedin'
+	redirect_uri: 'http://ec2-52-197-31-112.ap-northeast-1.compute.amazonaws.com/oauth/linkedin',
 	scope: 'r_basicprofile'
 });
 
