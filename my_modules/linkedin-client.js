@@ -105,6 +105,12 @@ module.exports.create = function(options) {
 			// Connection: Keep-Alive
 			// Authorization: Bearer AQXdSP_W41_UPs5ioT_t8HESyODB4FqbkJ8LrV_5mff4gPODzOYR
 
+			resource_path += resource_path + '?format=json';
+
+			if(method == "GET") {
+				resource_path = resource_path + '&' + querystring.stringify(data);
+			}
+
 			var options = {
 				hostname: 'api.linkedin.com',
 				port: 443,
@@ -132,7 +138,9 @@ module.exports.create = function(options) {
 			req.setHeader('Host', 'api.linkedin.com');
 			req.setHeader('Connection', 'Keep-Alive');
 			req.setHeader('Authorization', 'Bearer ' + this.access_token);
+
 			if(method == "POST") req.write(JSON.stringify(data));
+
 			req.end();
 		},
 		people: function(callback) {
