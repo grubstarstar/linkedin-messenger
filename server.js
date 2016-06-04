@@ -63,9 +63,9 @@ app.use((req, res, next) => {
 	next();
 });
 
-///////////////////////////////
-// Linkedin middleware stuff //
-///////////////////////////////
+////////////////////
+// Linkedin stuff //
+////////////////////
 
 // Redirects the user to LinkedIn to authorise this application if there is no ACCESS TOKEN
 app.use((req, res, next) => {
@@ -84,10 +84,6 @@ app.use((req, res, next) => {
 
 });
 
-////////////////////////////////////////
-// The main pages for the application //
-////////////////////////////////////////
-
 // This is the resource that the Linkedin API directs the user
 // back to once it's approvaed the user's authorisation to let
 // this application access it's account.
@@ -103,6 +99,10 @@ app.get('/oauth/linkedin', (req, res) => {
 	});
 
 });
+
+////////////////////////////////////////
+// The main pages for the application //
+////////////////////////////////////////
 
 // TODO: Use HTTPS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

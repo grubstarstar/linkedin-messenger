@@ -1,6 +1,6 @@
 var https = require('https');
 
-exports.Linkedin.create = function(options) {
+exports.create = function(options) {
 
 	var client_id     = options.client_id;
 	var client_secret = options.client_secret;
