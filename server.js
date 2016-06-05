@@ -32,17 +32,17 @@ var linkedin_client = LinkedinClientFactory.create({
 
 // The middleware to handle sessions
 app.use(session({
-  secret: "Remember you're a womble",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-  // TODO: make this secure over https
-  // cookie: { secure: true }
+	secret: "Remember you're a womble",
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: false }
+	// TODO: make this secure over https
+	// cookie: { secure: true }
 }));
 
 // Middleware to auto parse url-encoded POST data
 app.use(bodyParser.urlencoded({
-  extended: true
+	extended: true
 }));
 
 // Just log the start of the request
@@ -87,7 +87,7 @@ app.use((req, res, next) => {
 });
 
 // This is the resource that the Linkedin API directs the user
-// back to once it's approvaed the user's authorisation to let
+// back to once it's approved the user's authorisation to let
 // this application access it's account.
 app.get('/oauth/linkedin', (req, res) => {
 
@@ -117,6 +117,7 @@ app.get('/', (req, res) => {
 			message: 'DATA: '+ JSON.stringify(data)
 		});
 	});
+
 });
 
 // Handles POSTS to the main messenger page
@@ -126,13 +127,21 @@ app.post('/', (req, res) => {
 	var message = req.body.message;
 	var recips = req.body.recipients.split(',');
 
-	var log = "Sending message: " + message;
-	log += "...to recips: " + recips.join('; ');
-
 	// render the params to response
 	res.render('messenger', {
 		message: log
 	});
+
+	linkedin_client.sendMessage(
+		subject,
+		message,
+		recips,
+		(error, data) => {
+			res.render('messenger', {
+				message: 'DATA: '+ JSON.stringify(data)
+			});
+		}
+	);
 
 });
 

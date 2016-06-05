@@ -1,3 +1,5 @@
+'use strict';
+
 var https       = require('https');
 var querystring = require('querystring');
 
@@ -156,6 +158,28 @@ module.exports.create = function(options) {
 		},
 		people: function(callback) {
 			this._request('GET', '/v1/people/~', null, (error, json) => {
+				callback(error, json);
+			});
+		},
+		sendMessage: function(subject, message, people, callback) {
+			// Something like this?? Maybe?
+			// {
+			//     "mailbox-item": {
+			//         "recipients": {
+			//             "recipient": "/people/YKch2xyXrw"
+			//         },
+			//         "subject": "Some subject here",
+			//         "body": "This isthe message body"
+			//     }
+			// }
+			var post_data = {
+				"mailbox-item": {
+					"recipients": [ people ],
+					"subject": subject,
+					"body": message
+				}
+			};
+			this._request('POST', '/v1/people/~/mailbox', post_data, (error, json) => {
 				callback(error, json);
 			});
 		},
