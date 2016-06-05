@@ -127,11 +127,6 @@ app.post('/', (req, res) => {
 	var message = req.body.message;
 	var recips = req.body.recipients.split(',');
 
-	// render the params to response
-	res.render('messenger', {
-		message: log
-	});
-
 	linkedin_client.sendMessage(
 		subject,
 		message,
