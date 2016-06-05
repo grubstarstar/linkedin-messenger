@@ -124,6 +124,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
 
 	// get the POST params
+	var subject = req.body.subject;
 	var message = req.body.message;
 	var recips = req.body.recipients.split(',');
 
