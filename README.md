@@ -4,5 +4,6 @@ A small web application that uses OAuth 2.0 to connect to the LinkedIn API and a
 Built using:
 * Node.js / Express.js
 
-* contains a node module I made which handles the linked in OAuth 2.0 stuff neatly
+Consists of:
+* a node module I made which handles the linked in OAuth 2.0 stuff neatly
 * a web UI for sending messages based on the profile of the user and the apps permissions to the Linkein API
